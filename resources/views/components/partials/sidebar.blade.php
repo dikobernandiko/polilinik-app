@@ -1,26 +1,21 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
     <a href="#" class="brand-link">
         <span class="brand-text font-weight-light ">Poliklinik</span>
     </a>
 
-    <!-- Sidebar -->
     <div class="sidebar">
-        <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
                 <img src="https://www.gravatar.com/avatar/2c7d9f6f281ecd3bd65ab915bca6dd57s=100"
-                    class="img-circle elevation-2" alt="User Image">
+                     class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 <a href="#" class="d-block">Halo! {{ Auth::user()->nama }}</a>
             </div>
         </div>
 
-        <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-sidebar flex-column">
-                <!-- ROLE ADMIN -->
                 @if (request()->is('admin*'))
                     <li class="nav-item">
                         <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
@@ -30,9 +25,25 @@
                             </p>
                         </a>
                     </li>
+                    
+                    {{-- MENU MANAJEMEN POLI (YANG BARU DITAMBAHKAN) --}}
+                    <li class="nav-item">
+                        <a href="{{ route('polis.index') }}" 
+                           class="nav-link {{ request()->routeIs('polis.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-clinic-medical"></i>
+                            <p>Manajemen Poli</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('dokters.index') }}" 
+                            class="nav-link {{ request()->routeIs('dokters.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-user-md"></i>
+                            <p>Manajemen Dokter</p>
+                         </a>
+                    </li>
                 @endif
 
-                <!-- ROLE PASIEN -->
                 @if (request()->is('pasien*'))
                     <li class="nav-item">
                         <a href="{{ route('pasien.dashboard') }}" class="nav-link {{ request()->routeIs('pasien.dashboard') ? 'active' : '' }}">
@@ -44,7 +55,6 @@
                     </li>
                 @endif
 
-                <!-- ROLE DOKTER -->
                 @if (request()->is('dokter*'))
                     <li class="nav-item">
                         <a href="{{ route('dokter.dashboard') }}" class="nav-link {{ request()->routeIs('dokter.dashboard') ? 'active' : '' }}">
@@ -67,9 +77,5 @@
                 </li>
             </ul>
         </nav>
-        {{-- <form method="POST" action="/logout" class="btn btn-danger ml-4">
-            @csrf
-            <button>Keluar</button>
-        </form> --}}
     </div>
 </aside>
