@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class JadwalPeriksa extends Model
 {
@@ -17,7 +18,7 @@ class JadwalPeriksa extends Model
 
     public function dokter()
     {
-        return $this->belongsTo(Dokter::class, 'id_dokter');
+        return $this->belongsTo(User::class, 'id_dokter');
     }
 
     public function daftarPolis()

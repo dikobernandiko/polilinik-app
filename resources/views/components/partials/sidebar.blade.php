@@ -68,6 +68,15 @@
                             </p>
                         </a>
                     </li>
+                    
+                    {{-- MENU DAFTAR POLI --}}
+                    <li class="nav-item">
+                        <a href="{{ route('pasien.daftar') }}" 
+                        class="nav-link {{ request()->routeIs('pasien.daftar') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-hospital"></i> 
+                            <p>Poli</p>
+                        </a>
+                    </li>
                 @endif
 
                 @if (request()->is('dokter*'))
@@ -77,6 +86,15 @@
                             <p>
                                 Dashboard Dokter
                             </p>
+                        </a>
+                    </li>
+
+                    {{-- MENU JADWAL PERIKSA --}}
+                    <li class="nav-item">
+                        <a href="{{ route('jadwal-periksa.index') }}" 
+                        class="nav-link {{ request()->routeIs('jadwal-periksa.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-calendar-check"></i> 
+                            <p>Jadwal Periksa</p>
                         </a>
                     </li>
                 @endif
