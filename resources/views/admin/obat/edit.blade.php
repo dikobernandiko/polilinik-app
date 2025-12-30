@@ -5,7 +5,10 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0">Edit Obat</h1>
-                </div></div></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
     {{-- END SECTION: Content Header --}}
 
     {{-- SECTION: Main Content --}}
@@ -13,11 +16,13 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-8 offset-lg-2">
-                    <div class="card">
+                    <div class="card shadow-sm">
                         <div class="card-body">
                             <form action="{{ route('obat.update', $obat->id) }}" method="POST">
                                 @csrf
                                 @method('PUT') {{-- Method spoofing for update --}}
+                                
+                                {{-- Baris 1: Nama Obat & Kemasan --}}
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
@@ -38,13 +43,31 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label for="harga" class="form-label">Harga <span class="text-danger">*</span></label>
-                                    <input type="number" name="harga" id="harga" class="form-control @error('harga') is-invalid @enderror" value="{{ old('harga', $obat->harga) }}" required min="0" step="1">
-                                    @error('harga')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+
+                                {{-- Baris 2: Harga & Stok --}}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label for="harga" class="form-label">Harga <span class="text-danger">*</span></label>
+                                            <input type="number" name="harga" id="harga" class="form-control @error('harga') is-invalid @enderror" value="{{ old('harga', $obat->harga) }}" required min="0" step="1">
+                                            @error('harga')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{-- INPUT UPDATE STOK --}}
+                                        <div class="form-group mb-3">
+                                            <label for="stok" class="form-label">Update Stok <span class="text-danger">*</span></label>
+                                            <input type="number" name="stok" id="stok" class="form-control @error('stok') is-invalid @enderror" value="{{ old('stok', $obat->stok) }}" required min="0">
+                                            <small class="text-muted">Edit angka ini untuk menambah/mengurangi stok secara manual.</small>
+                                            @error('stok')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
+
                                 <div class="form-group mt-4">
                                     <button type="submit" class="btn btn-success">
                                         <i class="fas fa-save"></i> Update

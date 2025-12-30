@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Models\DaftarPoli;
+use Illuminate\Support\Facades\Auth;
 
 class PasienController extends Controller
 {
@@ -130,5 +132,19 @@ class PasienController extends Controller
         return redirect()->route('pasien.index')
                         ->with('message', 'Data Pasien Berhasil Di Hapus.')
                         ->with('type', 'success');
+    }
+
+    public function riwayat()
+    {
+    $idPasien = Auth::user()->id; 
+    $riwayat = DaftarPoli::with([
+                'periksa.detailPeriksa.obat', 
+                'jadwalPeriksa.dokter.poli' // Kita ambil poli & dokter LEWAT jadwalPeriksa
+            ])
+            ->where('id_pasien', $idPasien)
+            ->whereHas('periksa')
+            ->get();
+
+    return view('pasien.riwayat', compact('riwayat'));
     }
 }

@@ -5,7 +5,10 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0">Data Obat</h1>
-                </div></div></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
     {{-- END SECTION: Content Header --}}
 
     {{-- SECTION: Main Content --}}
@@ -22,7 +25,7 @@
                     </div>
                     @endif
 
-                    <div class="card">
+                    <div class="card shadow-sm">
                         <div class="card-header">
                             <a href="{{ route('obat.create') }}" class="btn btn-primary">
                                 <i class="fa fa-plus"></i> Tambah Obat
@@ -30,13 +33,15 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered">
+                                <table class="table table-bordered table-hover">
                                     <thead class="thead-light">
                                         <tr>
                                             <th>Nama Obat</th>
                                             <th>Kemasan</th>
                                             <th>Harga</th>
-                                            <th style="width: 150px;">Aksi</th>
+                                            {{-- HEADER STOK BARU --}}
+                                            <th class="text-center">Stok</th>
+                                            <th style="width: 150px;" class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -45,7 +50,19 @@
                                             <td>{{ $obat->nama_obat }}</td>
                                             <td>{{ $obat->kemasan }}</td>
                                             <td>Rp {{ number_format($obat->harga, 0, ',', '.') }}</td>
-                                            <td>
+                                            
+                                            {{-- INDIKATOR STOK (Challenge b.2) --}}
+                                            <td class="text-center">
+                                                @if($obat->stok <= 0)
+                                                    <span class="badge bg-danger">Habis</span>
+                                                @elseif($obat->stok <= 5)
+                                                    <span class="badge bg-warning text-dark">{{ $obat->stok }} (Menipis)</span>
+                                                @else
+                                                    <span class="badge bg-success">{{ $obat->stok }}</span>
+                                                @endif
+                                            </td>
+
+                                            <td class="text-center">
                                                 <a href="{{ route('obat.edit', $obat->id) }}" class="btn btn-sm btn-warning">
                                                     <i class="fa fa-edit"></i> Edit
                                                 </a>
@@ -60,7 +77,8 @@
                                         </tr>
                                         @empty
                                         <tr>
-                                            <td class="text-center" colspan="4">Belum ada Data Obat.</td>
+                                            {{-- UPDATE COLSPAN MENJADI 5 --}}
+                                            <td class="text-center" colspan="5">Belum ada Data Obat.</td>
                                         </tr>
                                         @endforelse
                                     </tbody>

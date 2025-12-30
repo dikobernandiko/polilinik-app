@@ -6,6 +6,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Poli;
+use App\Models\JadwalPeriksa;
+
 
 class User extends Authenticatable
 {
@@ -51,11 +54,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // Relasi ke Poli (Dokter bertugas di Poli mana)
     public function poli()
     {
         return $this->belongsTo(Poli::class, 'id_poli');
     }
-    public function jadwalPeriksa()
+
+    // Relasi ke Jadwal Periksa (Dokter punya banyak jadwal)
+    public function jadwalPeriksas()
     {
         return $this->hasMany(JadwalPeriksa::class, 'id_dokter');
     }

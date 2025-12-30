@@ -36,12 +36,14 @@ class ObatController extends Controller
             'nama_obat' => 'required|string', 
             'kemasan' => 'required|string', 
             'harga' => 'required|integer', 
+            'stok' => 'required|integer|min:0',
         ]);
 
         Obat::create([
             'nama_obat' => $request->nama_obat,
             'kemasan' => $request->kemasan,
-            'harga' => $request->harga
+            'harga' => $request->harga,
+            'stok' => $request->stok,
         ]);
 
         return redirect()->route('obat.index')
@@ -77,14 +79,16 @@ class ObatController extends Controller
         $request->validate([
             'nama_obat' => 'required|string', // nama_obat must be filled and a string
             'kemasan' => 'nullable|string', // kemasan can be empty but must be a string
-            'harga' => 'required|integer', // harga must be filled and an integer
+            'harga' => 'required|integer',
+            'stok' => 'required|integer|min:0', // stok must be filled and an integer
         ]);
 
         $obat = Obat::findOrFail($id); 
             $obat->update([
                 'nama_obat' => $request->nama_obat,
                 'kemasan' => $request->kemasan,
-                'harga' => $request->harga
+                'harga' => $request->harga,
+                'stok' => $request->stok,
             ]);
 
         return redirect()->route('obat.index')

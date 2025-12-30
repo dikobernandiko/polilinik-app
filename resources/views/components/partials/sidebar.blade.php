@@ -77,6 +77,14 @@
                             <p>Poli</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('pasien.riwayat') }}" class="nav-link {{ request()->routeIs('pasien.riwayat') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-history"></i>
+                            <p>
+                                Riwayat Periksa
+                            </p>
+                        </a>
+                    </li>
                 @endif
 
                 @if (request()->is('dokter*'))
@@ -95,6 +103,22 @@
                         class="nav-link {{ request()->routeIs('jadwal-periksa.*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-calendar-check"></i> 
                             <p>Jadwal Periksa</p>
+                        </a>
+                    </li>
+
+                    {{-- MENU PERIKSA PASIEN --}}
+                    <li class="nav-item">
+                        <a href="{{ route('periksa-pasien.index') }}" class="nav-link {{ request()->routeIs('periksa-pasien.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-stethoscope"></i>
+                            <p>Periksa Pasien</p>
+                        </a>
+                    </li>
+                    {{-- MENU RIWAYAT PASIEN --}}
+                    <li class="nav-item">
+                        <a href="{{ route('riwayat-pasien.index') }}" 
+                        class="nav-link {{ request()->routeIs('riwayat-pasien.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-history"></i>
+                            <p>Riwayat Pasien</p>
                         </a>
                     </li>
                 @endif

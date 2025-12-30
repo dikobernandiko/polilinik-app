@@ -2,26 +2,33 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\DetailPeriksa; 
+use App\Models\DaftarPoli;    
 
 class Periksa extends Model
 {
+    use HasFactory;
+
     protected $table = 'periksa';
+    protected $primaryKey = 'id';
+    protected $guarded = [];
 
-    protected $fillable = [
-        'id_daftar_poli',
-        'tgl_periksa',
-        'catatan',
-        'biaya_periksa',
-    ];
-
-    public function daftarPoli()
+    // Relasi ke Detail Periksa 
+    public function detailPeriksa()
     {
-        return $this->belongsTo(DaftarPoli::class, 'id_daftar_poli');
+        return $this->hasMany(DetailPeriksa::class, 'id_periksa', 'id');
     }
 
     public function detailPeriksas()
     {
-        return $this->belongsTo(DaftarPeriksa::class, 'id_periksa');
+        return $this->hasMany(DetailPeriksa::class, 'id_periksa', 'id');
+    }
+
+    // Relasi balik ke Daftar Poli
+    public function daftarPoli()
+    {
+        return $this->belongsTo(DaftarPoli::class, 'id_daftar_poli', 'id');
     }
 }
